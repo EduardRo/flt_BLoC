@@ -1,4 +1,9 @@
+import 'dart:async';
+
+import '../data/article.dart';
+import '../data/rw_client.dart';
 import 'bloc.dart';
+import 'package:rxdart/rxdart.dart';
 
 class ArticleListBloc implements Bloc {
   // 1
@@ -13,7 +18,15 @@ class ArticleListBloc implements Bloc {
   ArticleListBloc() {
     // 5
     articlesStream = _searchQueryController.stream
-        .asynchMap((query) => _client.fetchArticle(query));
+        .startWith(null) // 1
+        .debounceTime(const Duration(milliseconds: 100)) // 2
+        .switchMap(
+          // 3
+          (query) => _client
+              .fetchArticles(query)
+              .asStream() // 4
+              .startWith(null), // 5
+        );
   }
 
 // 6

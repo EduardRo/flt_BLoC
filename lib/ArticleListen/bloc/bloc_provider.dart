@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import 'bloc.dart';
 
@@ -8,7 +9,7 @@ class BlocProvider<T extends Bloc> extends StatefulWidget {
   final Widget child;
   final T bloc;
 
-  BlocProvider({
+  const BlocProvider({
     Key? key,
     required this.bloc,
     required this.child,
@@ -25,13 +26,14 @@ class BlocProvider<T extends Bloc> extends StatefulWidget {
   State createState() => _BlocProviderState();
 }
 
-
-class __BlocProviderState extends State<BlocProvider>{
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
+class _BlocProviderState extends State<BlocProvider> {
   // 3
-  
+  @override
+  Widget build(BuildContext context) => widget.child;
+  // 4
+  @override
+  void dispose() {
+    widget.bloc.dispose();
+    super.dispose();
+  }
 }
