@@ -3,6 +3,7 @@ import 'package:flutter_app_bar/ArticleListen/bloc/article_list_bloc.dart';
 import 'package:flutter_app_bar/ArticleListen/bloc/bloc_provider.dart';
 
 import '../data/article.dart';
+import 'article_list_item.dart';
 //import 'package:flutter/src/foundation/key.dart';
 //import 'package:flutter/src/widgets/framework.dart';
 
@@ -54,6 +55,23 @@ class ArticleListScreen extends StatelessWidget {
   }
 
   Widget _buildSearchResults(List<Article> results) {
-    return Container();
+    return ListView.builder(
+      itemCount: results.length,
+      itemBuilder: (context, index) {
+        final article = results[index];
+        return InkWell(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            // 1
+            child: ArticleListItem(article: article),
+          ),
+          // 2
+          onTap: () {
+            // ignore: todo
+            // TODO: Later will be implemented
+          },
+        );
+      },
+    );
   }
 }
